@@ -28,7 +28,7 @@ export default function FixedAllocation(props) {
     );
 
     let resJson = await response.json();
-    console.log("resJson",resJson)
+    console.log("resJson", resJson);
     if (resJson.status == "success") {
       props.alert(resJson.message, "success");
     } else {
@@ -72,7 +72,6 @@ export default function FixedAllocation(props) {
         <div className="col-sm-12">
           <div className="card-body col-sm-12 pb-1">
             <h6 className="fw-bold">FixedAllocation</h6>
-
 
             <form
               className="row row-cols-lg-auto g-3 align-items-center "
@@ -138,7 +137,11 @@ export default function FixedAllocation(props) {
                 <button type="submit" className="btn btn-primary">
                   Update
                 </button>
-                <button type="button" className="btn btn-primary ms-3" onClick={handleInsertFixedAllocation}>
+                <button
+                  type="button"
+                  className="btn btn-primary ms-3"
+                  onClick={handleInsertFixedAllocation}
+                >
                   Insert
                 </button>
               </div>
@@ -149,4 +152,3 @@ export default function FixedAllocation(props) {
     </section>
   );
 }
-

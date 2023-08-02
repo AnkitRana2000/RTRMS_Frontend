@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import urlData from "../../auth.json";
 import LoginBackGround from "../../assets/image/LoginBackground.png";
+import { useContext } from "react";
+import { DataContext } from "../../APIcontext/APIcontext";
 
 const divStyle = {
   position: "relative",
@@ -21,10 +23,14 @@ const cardStyle = {
 };
 
 export default function Login(props) {
+
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  const {fetchOverAllUtilisation} = useContext(DataContext)
+  
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -63,8 +69,10 @@ export default function Login(props) {
     if (resJson.status === "success") {
       setMessage(resJson.message);
       sessionStorage.setItem("token", resJson.data["access_token"]);
+      sessionStorage.setItem("role", resJson.data["role"]);
       navigate("/dashboard");
       props.alert("Logged In", "success");
+      fetchOverAllUtilisation()
       console.log(sessionStorage.token);
     } else if (resJson.status === "Error") {
       setMessage(resJson.message);

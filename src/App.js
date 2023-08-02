@@ -5,6 +5,7 @@ import ResSideBar from "./components/ResSideBar";
 import Alerts from "./components/Features/Alerts";
 import { useState } from "react";
 import Login from "./components/Features/Login"
+import APIcontext from "./APIcontext/APIcontext";
 
 
 
@@ -19,6 +20,7 @@ function App() {
   };
   return (
     <>
+      <APIcontext>
       <BrowserRouter>
       {sessionStorage.token && (
         <div>
@@ -30,7 +32,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Login alert={showalert} />} />
         </Routes>
+
       </BrowserRouter>
+      </APIcontext>
     </>
   );
 }

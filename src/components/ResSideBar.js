@@ -20,12 +20,12 @@ export default function ResSideBar(props) {
 
   const toggleSidebar = () => {
     if (mini) {
-      console.log("opening sidebar");
+      // console.log("opening sidebar");
       document.getElementById("mySidebar").style.width = "200px";
       document.getElementById("main").style.marginLeft = "200px";
       setMini(false);
     } else {
-      console.log("closing sidebar");
+      // console.log("closing sidebar");
       document.getElementById("mySidebar").style.width = "65px";
       document.getElementById("main").style.marginLeft = "60px";
       setMini(true);
@@ -37,8 +37,8 @@ export default function ResSideBar(props) {
       <div
         id="mySidebar"
         className={`sidebar ${mini ? "open" : ""}`}
-        onMouseOver={toggleSidebar}
-        onMouseOut={toggleSidebar}
+        onMouseEnter={toggleSidebar}
+        onMouseLeave={toggleSidebar}
       >
         <div className="mt-5 ">
           <Link

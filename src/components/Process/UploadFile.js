@@ -47,6 +47,7 @@ export default function UploadFile(props) {
       }
     } catch (error) {
       console.error("Error uploading files:", error);
+      props.alert("Error uploading files:", error);
     }
   };
 

@@ -7,6 +7,8 @@ import Alerts from "./Features/Alerts";
 import "../styles//NavBar.css"
 
 export default function NavBar(props) {
+
+  console.log(props)
   const logout = () => {
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("role");
@@ -31,7 +33,9 @@ export default function NavBar(props) {
             <Alerts alert={props.alert1} />
           </div>
           <ul className="navbar-nav">
-            
+            <li className="nav-item mt-3 h5">
+              <div className=" text-white">{sessionStorage.getItem("role")}</div>
+            </li>
 
             <li>
               <Link

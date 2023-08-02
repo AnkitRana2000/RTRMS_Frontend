@@ -1,15 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import "../styles/Data.css"
 
 export default function Data() {
   return (
-    <section className="dashboard">
+    <section className="data">
       <div className="container">
         <div className=" col-sm-12">
           <div className=" col-sm-12">
             <div>
-              <h3>Data</h3>
+              <h3 >Data</h3>
             </div>
 
             <div className="mt-3">
@@ -17,7 +17,7 @@ export default function Data() {
                 <tbody>
                   <tr >
                     <td>
-                      <label>Fixed-Allocation:</label>
+                      <label >Fixed-Allocation:</label>
                     </td>
                     <td>
                       <Link

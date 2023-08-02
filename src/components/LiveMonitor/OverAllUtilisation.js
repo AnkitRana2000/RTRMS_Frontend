@@ -1,183 +1,155 @@
 import React, { useEffect, useState } from "react";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import urlData from "../../auth.json";
+// import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
+import { useContext } from "react";
+import { DataContext } from "../../APIcontext/APIcontext";
+import DataGrid from "@inovua/reactdatagrid-community";
+import "@inovua/reactdatagrid-community/index.css";
+import NumberFilter from "@inovua/reactdatagrid-community/NumberFilter";
+import StringFilter from "@inovua/reactdatagrid-community/StringFilter";
+
+
 
 export default function OverAllUtilisation() {
-  const [apiResponses, setApiResponses] = useState([]);
-  const apiUrl = "http://connect.arhamshare.com:9090/ICCL/FetchAllocation";
-  // const apiUrl = ""
-  const token = "z8vuwMokZIexL6e3";
-  const dataStrings = [
-    "CM,6405,OWN",
-    "CM,6405,A2196",
-    "CM,6405,10001",
-    "CM,6405,10006",
-    "CM,6405,10024",
-    "CM,6405,10515",
-    "CM,6405,11502",
-    "CM,6405,11507",
-    "CM,6405,11514",
-  ];
+  
+  const {apiResponses,fetchOverAllUtilisation}= useContext(DataContext)
 
-  // Join the data strings with "^" to create the final requestDataString
-  const requestDataString = dataStrings.join("^");
+  const filterColumns = [{ name: "clientId", type: "string", operator: "eq" }];
 
-  useEffect(() => {
-    const fetchMultipleResponses = async () => {
-      try {
-        const formData = new FormData();
-        formData.append("Token", token);
-        formData.append("ReqData", requestDataString);
-
-        const response = await fetch(apiUrl, {
-          method: "POST",
-          body: formData,
-        });
-
-        const responseData = await response.json();
-        // Split the response data by "^" to get individual data strings
-        const dataStrings = responseData.data.split("^");
-        console.log("dataStrings", dataStrings);
-
-        // Convert each data string into an object
-        const dataObjects = dataStrings.map((dataString, index) => {
-          const [
-            date,
-            Segment,
-            cmId,
-            memberId,
-            clientId,
-            accType,
-            ccAmount,
-            tfSegment,
-            Filler1,
-            Filler2,
-            Filler3,
-            Filler4,
-            Filler5,
-            action,
-          ] = dataString.split(",");
-          return {
-            id: index + 1,
-            Date: date,
-            Segment: Segment,
-            CMId: cmId,
-            MemberId: memberId,
-            ClientId: clientId,
-            AccType: accType,
-            CCAmount: ccAmount,
-            TFSegment: tfSegment,
-            Filler1: Filler1,
-            Filler2: Filler2,
-            Filler3: Filler3,
-            Filler4: Filler4,
-            Filler5: Filler5,
-            Action: action,
-          };
-        });
-
-        setApiResponses(dataObjects);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    
-    fetchMultipleResponses();
-  }, []);
 
   const columns = [
-    { field: "id", headerName: "SR.NO", width: 100, headerClassName: "header" },
+    { name: "id", header: "SR.NO",type:"number" },
     {
-      field: "Date",
-      headerName: "Current Date",
-      width: 120,
-      headerClassName: "header",
+      name: "clientId",
+      header: "ClientId",
+      type: "string",
+      filterEditor: StringFilter,
+      
     },
     {
-      field: "Segment",
-      headerName: "Segment",
-      width: 120,
-      headerClassName: "header",
+      name: "total_margin",
+      header: "Total Margin",
+      type: "number",
+      filterEditor: NumberFilter,
+      renderCell: (params) => params.value.toFixed(2),
     },
     {
-      field: "CMId",
-      headerName: "CM Id",
-      width: 120,
-      headerClassName: "header",
+      name: "total",
+      header: "Total",
+      type: "number",
+      filterEditor: NumberFilter,
+      renderCell: (params) => params.value.toFixed(2),
     },
     {
-      field: "MemberId",
-      headerName: "Member Id",
-      width: 120,
-      headerClassName: "header",
+      name: "percentage",
+      header: "Percentage",
+      type: "number",
+      filterEditor: NumberFilter,
+      renderCell: (params) =>params.value== null ? "-":params.value.toFixed(2),
+    }, 
+    {
+      name: "fo_margin",
+      header: "FOMargin",
+      type: "number",
+      filterEditor: NumberFilter,
+      renderCell: (params) => params.value.toFixed(2),
     },
     {
-      field: "ClientId",
-      headerName: "Client Id",
-      width: 120,
-      headerClassName: "header",
+      name: "fo_col",
+      header: "FOCol",
+      type: "number",
+      filterEditor: NumberFilter,
+      renderCell: (params) => params.value.toFixed(2),
+    },
+
+    {
+      name: "fo_allocation",
+      header: "FOAllocation",
+      type: "number",
+      filterEditor: NumberFilter,
+      renderCell: (params) => params.value.toFixed(2),
     },
     {
-      field: "AccType",
-      headerName: "AccType",
-      width: 120,
-      headerClassName: "header",
+      name: "fo_total",
+      header: "FOTotal",
+      type: "number",
+      filterEditor: NumberFilter,
+      renderCell: (params) => params.value.toFixed(2),
+    },
+
+    {
+      name: "cm_margin",
+      header: "CMMargin",
+      type: "number",
+      filterEditor: NumberFilter,
+      renderCell: (params) => params.value.toFixed(2),
     },
     {
-      field: "CCAmount",
-      headerName: "Cash & Cash Equivalents Amount",
-      width: 120,
-      headerClassName: "header",
+      name: "cm_col",
+      header: "CMCol",
+      type: "number",
+      filterEditor: NumberFilter,
+      renderCell: (params) => params.value.toFixed(2),
     },
     {
-      field: "TFSegment",
-      headerName: "TRANSFER TO SEGMENT",
-      width: 120,
-      headerClassName: "header",
+      name: "cm_allocation",
+      header: "CMAllocation",
+      type: "number",
+      filterEditor: NumberFilter,
+      renderCell: (params) => params.value.toFixed(2),
     },
     {
-      field: "Filler1",
-      headerName: "Filler1",
-      width: 120,
-      headerClassName: "header",
+      name: "cm_total",
+      header: "CMTotal",
+      type: "number",
+      filterEditor: NumberFilter,
+      renderCell: (params) => params.value.toFixed(2),
     },
     {
-      field: "Filler2",
-      headerName: "Filler2",
-      width: 120,
-      headerClassName: "header",
+      name: "cd_margin",
+      header: "CDMargin",
+      type: "number",
+      filterEditor: NumberFilter,
+      renderCell: (params) => params.value.toFixed(2),
+    },
+
+    {
+      name: "cd_col",
+      header: "CDCol",
+      type: "number",
+      filterEditor: NumberFilter,
+      renderCell: (params) => params.value.toFixed(2),
     },
     {
-      field: "Filler3",
-      headerName: "Filler3",
-      width: 120,
-      headerClassName: "header",
+      name: "cd_allocation",
+      header: "CDAllocation",
+      type: "number",
+      filterEditor: NumberFilter,
+      renderCell: (params) => params.value.toFixed(2),
     },
     {
-      field: "Filler4",
-      headerName: "Filler4",
-      width: 120,
-      headerClassName: "header",
-    },
-    {
-      field: "Filler5",
-      headerName: "Filler5",
-      width: 120,
-      headerClassName: "header",
-    },
-    {
-      field: "Action",
-      headerName: "Action",
-      width: 120,
-      headerClassName: "header",
+      name: "cd_total",
+      header: "CDTotal",
+      type: "number",
+      filterEditor: NumberFilter,
+      renderCell: (params) => params.value.toFixed(2),
     },
   ];
 
+  useEffect(() => {
+    
+    const interval = setInterval(fetchOverAllUtilisation, 60000);
+    return () => {
+      clearInterval(interval);
+    };
+    });
+    const gridStyle = { minHeight: 700 };
   return (
     <section className="dashboard">
       <div className="container">
-        <div className="card col-sm-12">
-          <div className="card-body col-sm-12">
+        <div className=" col-sm-12">
+          <div className=" col-sm-12">
             <h4 className="mb-3">OverAllUtilisation</h4>
             {/* <div>
               <h1>API Responses for Multiple Clients</h1>
@@ -185,26 +157,33 @@ export default function OverAllUtilisation() {
             </div> */}
             <div className="mt-2">
               <div className="table-responsive">
-                <div style={{ height: 500, width: "100%" }}>
+                <div style={{ height: 600, width: "100%" }}>
                   <Box
                     sx={{
                       width: "100%",
+                      height: "100%",
                       "& .header": {
-                        backgroundColor: "#eaecee;",
-                        fontWeight: 900,
-                        fontSize: "18px",
+                        backgroundColor: "lightgray",
+                        alignItems: "center",
                       },
                     }}
                   >
                     <DataGrid
-                      sx={{ margin: "10px", padding: "10px", fontSize: "17px" }}
-                      rowHeight={30}
+                      sx={{ margin: 0, padding: 1, fontSize: "12px" }}
+                      rowHeight={22}
                       columnHeaderHeight={30}
-                      rows={apiResponses}
+                      dataSource={apiResponses}
                       columns={columns}
-                      slots={{
-                        toolbar: GridToolbar,
-                      }}
+                      
+
+
+                      
+                      idProperty="id"
+                      pagination
+                      defaultLimit={50}
+                      columnMinWidth={80}
+                      style={gridStyle}
+                      defaultFilterValue={filterColumns}
                     />
                   </Box>
                 </div>

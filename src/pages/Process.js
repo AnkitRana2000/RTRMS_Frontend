@@ -18,6 +18,7 @@ export default function Process() {
           <div className=" col-sm-12">
             <div className=" col-sm-12">
               <div className="row ">
+              <h3 className="mb-3">Process</h3>
                 {/* First row */}
                 <div className="col-md-4">
                   <Link to="/uploadfile" style={linkStyles}>

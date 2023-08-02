@@ -23,7 +23,7 @@ export default function Reports() {
                 </div>
 
                 <div className="col-sm-3  mb-3">
-                  <Link to="3" style={{ textDecoration: "none" }}>
+                  <Link to="#" style={{ textDecoration: "none" }}>
                     <div className="card card-container">
                       <div className="card-body">
                         <h5 className="card-title">Funded Clients</h5>
