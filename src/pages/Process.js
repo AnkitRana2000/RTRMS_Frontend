@@ -17,8 +17,10 @@ export default function Process() {
         <div className="container ">
           <div className=" col-sm-12">
             <div className=" col-sm-12">
-              <div className="row ">
+              <div>
               <h3 className="mb-3">Process</h3>
+              <div className="row ">
+              
                 {/* First row */}
                 <div className="col-md-4">
                   <Link to="/uploadfile" style={linkStyles}>
@@ -32,17 +34,18 @@ export default function Process() {
                     </div>
                   </Link>
                 </div>
-                <div className="col-md-3">
+                <div className="col-md-4">
                   <Link to="#" style={linkStyles}>
                     <div
-                      className="card ms-3 mt-3 card-container"
-                      style={{ maxWidth: "20rem" }}
+                      className="card ms-4 mt-2 card-container"
+                      style={{ maxWidth: "18rem" }}
                     >
                       <div className="card-body">
                         <h5 className="card-title text-center">In Market</h5>
                       </div>
                     </div>
                   </Link>
+                </div>
                 </div>
 
                 {/* Second row */}
@@ -75,7 +78,7 @@ export default function Process() {
               </div>
             </div>
           </div>
-        </div>
+          </div>
       </section>
     </>
   );

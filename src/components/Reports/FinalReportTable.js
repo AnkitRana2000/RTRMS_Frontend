@@ -95,6 +95,12 @@ export default function FinalReportTable(props) {
       headerClassName: "header",
     },
     {
+      field: "Funded_Amount",
+      headerName: "Funded_Amount",
+      width: 120,
+      headerClassName: "header",
+    },
+    {
       field: "Allocation_Cash",
       headerName: "Allocation_Cash",
       width: 120,
